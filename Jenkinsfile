@@ -26,7 +26,7 @@ pipeline {
             steps {
                 script {
                     if (env.CHANGE_ID != null) {
-                        def json = sh (script: "curl -s https://api.github.com/repos/crossplaneio/crossplane/pulls/${env.CHANGE_ID}", returnStdout: true).trim()
+                        def json = sh (script: "curl -s https://api.github.com/repos/crossplaneio/release-test/pulls/${env.CHANGE_ID}", returnStdout: true).trim()
                         def body = evaluateJson(json,'${json.body}')
                         if (body.contains("[skip ci]")) {
                             echo ("'[skip ci]' spotted in PR body text.")
@@ -117,40 +117,6 @@ pipeline {
             }
             steps {
                 sh './build/run make -j\$(nproc) e2e'
-            }
-        }
-
-        stage('SonarQube Analysis') {
-            when {
-                expression {
-                    return env.shouldBuild != "false"
-                }
-            }
-            steps {
-                script {
-                    scannerHome = tool 'SonarQubeScanner'
-                    scannerParams = ''
-                    if (env.CHANGE_ID == null) {
-                        scannerParams = "-Dsonar.branch.name=${BRANCH_NAME} "
-                        if (BRANCH_NAME != 'master') {
-                            scannerParams = "${scannerParams} -Dsonar.branch.target=master"
-                        }
-                    } else {
-                        scannerParams = "-Dsonar.pullrequest.base=master " +
-                            "-Dsonar.pullrequest.branch=${env.BRANCH_NAME} " +
-                            "-Dsonar.pullrequest.key=${env.CHANGE_ID}  " +
-                            "-Dsonar.pullrequest.provider=github " +
-                            "-Dsonar.pullrequest.github.repository=crossplaneio/${env.REPOSITORY_NAME}"
-                    }
-                }
-
-                withSonarQubeEnv('SonarQubeCrossplane') {
-                  sh "${scannerHome}/bin/sonar-scanner " +
-                    "-Dsonar.projectKey=crossplaneio_${env.REPOSITORY_NAME} " +
-                    "-Dsonar.projectName=${env.REPOSITORY_NAME} " +
-                    "-Dsonar.organization=crossplane " +
-                    "-Dsonar.sources=. ${scannerParams} "
-                }
             }
         }
 

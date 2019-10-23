@@ -1,7 +1,7 @@
 # ====================================================================================
 # Setup Project
 
-PROJECT_NAME := crossplane
+PROJECT_NAME := release-test
 PROJECT_REPO := github.com/crossplaneio/$(PROJECT_NAME)
 
 PLATFORMS ?= linux_amd64 linux_arm64
@@ -14,7 +14,7 @@ PLATFORMS ?= linux_amd64 linux_arm64
 # ====================================================================================
 # Setup Output
 
-S3_BUCKET ?= crossplane.releases
+S3_BUCKET ?= crossplane.release-test.releases
 -include build/makelib/output.mk
 
 # ====================================================================================
@@ -36,15 +36,6 @@ GO111MODULE = on
 -include build/makelib/golang.mk
 
 # ====================================================================================
-# Setup Helm
-
-HELM_BASE_URL = https://charts.crossplane.io
-HELM_S3_BUCKET = crossplane.charts
-HELM_CHARTS = crossplane
-HELM_CHART_LINT_ARGS_crossplane = --set nameOverride='',imagePullSecrets=''
--include build/makelib/helm.mk
-
-# ====================================================================================
 # Setup Kubebuilder
 
 CRD_DIR = cluster/charts/crossplane/templates/crds
@@ -61,16 +52,8 @@ API_DIR = ./apis/...
 # Setup Images
 
 DOCKER_REGISTRY = crossplane
-IMAGES = crossplane
+IMAGES = release-test
 -include build/makelib/image.mk
-
-# ====================================================================================
-# Setup Docs
-
-SOURCE_DOCS_DIR = docs
-DEST_DOCS_DIR = docs
-DOCS_GIT_REPO = https://$(GIT_API_TOKEN)@github.com/crossplaneio/crossplaneio.github.io.git
--include build/makelib/docs.mk
 
 # ====================================================================================
 # Targets

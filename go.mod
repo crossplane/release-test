@@ -6,6 +6,7 @@ require (
 	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751 // indirect
 	github.com/alecthomas/units v0.0.0-20190717042225-c3de453c63f4 // indirect
 	github.com/crossplaneio/crossplane-runtime v0.0.0-20191022001740-a56c70ba6270
+	github.com/crossplaneio/release-test v0.3.0 // indirect
 	github.com/ghodss/yaml v1.0.0
 	github.com/google/go-cmp v0.3.0
 	github.com/onsi/ginkgo v1.9.0 // indirect

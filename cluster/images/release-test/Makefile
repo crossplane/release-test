@@ -6,7 +6,7 @@ include ../../../build/makelib/common.mk
 
 # ====================================================================================
 #  Options
-IMAGE = $(BUILD_REGISTRY)/crossplane-$(ARCH)
+IMAGE = $(BUILD_REGISTRY)/release-test-$(ARCH)
 include ../../../build/makelib/image.mk
 
 # ====================================================================================
