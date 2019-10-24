@@ -412,6 +412,7 @@ func NewStackPackage(baseDir string) *StackPackage {
 // at the very least "/".
 func Unpack(rw walker.ResourceWalker, out io.StringWriter, baseDir string, permissionScope string) error {
 	log.V(logging.Debug).Info("Unpacking stack")
+	log.V(logging.Debug).Info("mock bug fix to be included in release")
 
 	sp := NewStackPackage(filepath.Clean(baseDir))
 
