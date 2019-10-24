@@ -28,6 +28,9 @@ Draft release notes, collect feedback
 
 (build essentially goes out to the community here)
 Run tag pipeline with version and commit hash
+    - first time you run on a new branch, you won't get prompted to input values
+    - run (not replay) the pipeline on the release branch again, enter the version and commit hash
+    - link to this issue? how is this not fixed yet?
 this should kick off the final release build with the official version number and it should be published to docker hub, etc.
 verify all published artifacts (docker hub, helm charts, s3 releases bucket, docs website)
 
