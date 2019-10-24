@@ -19,6 +19,8 @@ pipeline {
             steps {
                 // github credentials are not setup to push over https in jenkins. add the github token to the url
                 sh "git config remote.origin.url https://${GITHUB_UPBOUND_BOT_USR}:${GITHUB_UPBOUND_BOT_PSW}@\$(git config --get remote.origin.url | sed -e 's/https:\\/\\///')"
+                sh 'git config --global user.name "upbound-bot"'
+                sh 'git config --global user.email "info@crossplane.io"'
                 sh "./build/run make -j\$(nproc) tag VERSION=${params.version} COMMIT_HASH=${params.commit}"
             }
         }
