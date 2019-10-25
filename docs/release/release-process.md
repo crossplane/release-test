@@ -31,7 +31,9 @@ Run tag pipeline with version and commit hash
     - first time you run on a new branch, you won't get prompted to input values
     - run (not replay) the pipeline on the release branch again, enter the version and commit hash
     - link to this issue? how is this not fixed yet?
-this should kick off the final release build with the official version number and it should be published to docker hub, etc.
+
+if a normal build pipeline build isn't automatically kicked off from this tagging, go ahead and run the build pipeline for the release branch manually
+this will be the official release build with official version number and it should be published to docker hub, etc.
 verify all published artifacts (docker hub, helm charts, s3 releases bucket, docs website)
 
 publish release notes, this will send email to all watchers of the repo
@@ -43,3 +45,11 @@ release announcements
  - twitter account
  - post tweet to slack #announcements channel, copy slack post to #general channel
  - other social media (reddit)
+
+
+patch releases
+fix bugs in master and cherry-pick to release branch
+if master has moved on then fix directly in release branch
+after all testing on release branch builds look good, tag release branch HEAD commit with patch version (e.g. v0.4.1)
+run build pipeline on release branch
+run promote to alpha channel
